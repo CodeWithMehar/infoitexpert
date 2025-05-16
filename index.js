@@ -1,22 +1,28 @@
+require('dotenv').config();  // Load environment variables from .env file
+
 const express = require("express");
 const mongoose = require('mongoose');
 const cors = require('cors');
 const { routes } = require("./app/route");
 
-let app = express();
+const app = express();
 
-// Apply CORS and JSON parsing middleware
+// Middleware for CORS and parsing JSON requests
 app.use(cors());
-app.use(express.json()); // To parse JSON request bodies
+app.use(express.json());
 
-// Use routes
+// Use your routes
 app.use(routes);
 
-// Connect to MongoDB and start the server
-mongoose.connect('mongodb://127.0.0.1:27017/williamSite').then(() => {
+// Connect to MongoDB using the URI from .env
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("Connected to MongoDB successfully.");
+    // Start server only after successful DB connection
     app.listen(8000, () => {
-        console.log('Server is running on port 8000');
+      console.log('Server is running on port 8000');
     });
-}).catch(err => {
+  })
+  .catch(err => {
     console.error("Failed to connect to MongoDB", err);
-});
+  });
