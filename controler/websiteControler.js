@@ -99,7 +99,6 @@ const popup = [
     },
   ];
 
-module.exports = popup;
-
   
 module.exports = { contact, popup };
+

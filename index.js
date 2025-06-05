@@ -7,9 +7,20 @@ const { routes } = require("./app/route");
 
 const app = express();
 
-// Middleware for CORS and parsing JSON requests
-app.use(cors());
+// Allow only your frontend domain to access backend API
+app.use(cors({
+  origin: 'https://infoitexpert.com',  // <-- yahan aapka live frontend domain likhein, https important hai
+  credentials: true,
+}));
+
+// Middleware to parse JSON requests
 app.use(express.json());
+
+// Handle preflight OPTIONS requests for all routes (important for POST/PUT requests)
+app.options("*", cors({
+  origin: 'https://infoitexpert.com',
+  credentials: true,
+}));
 
 // Use your routes
 app.use(routes);
