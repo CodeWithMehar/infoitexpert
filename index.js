@@ -9,7 +9,7 @@ const app = express();
 
 // Allow only your frontend domain to access backend API
 app.use(cors({
-  origin: 'https://infoitexpert.com',  // <-- yahan aapka live frontend domain likhein, https important hai
+ origin: ['https://infoitexpert.com', 'https://www.infoitexpert.com'],  // <-- yahan aapka live frontend domain likhein, https important hai
   credentials: true,
 }));
 
